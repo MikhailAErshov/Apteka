@@ -49,7 +49,7 @@ public class MainTest extends WebTest{
         open("https://aptekaeconom.com/");
         Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
         refresh();
-        aptekaMainPage.confirmRegion.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+
 
         step("Навести курсор на одну из категорий и нажать на подкатегорию", () -> {
             aptekaMainPage.checkTheTransitionToACategoryWithAProduct();

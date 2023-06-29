@@ -21,6 +21,7 @@ public class WebTest {
             capabilities.setCapability("enableVNC:", true);
             WebDriver driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), capabilities);
             setWebDriver(driver);
+            Configuration.timeout = 15000;
         } else {
             Configuration.browser = "firefox";
         }

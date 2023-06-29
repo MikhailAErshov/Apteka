@@ -17,7 +17,7 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 public class WebTest {
     @BeforeAll
     public static void setDriver() throws MalformedURLException {
-//        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.baseUrl = "https://aptekaeconom.com";
         Configuration.browserSize = "1920x1080";

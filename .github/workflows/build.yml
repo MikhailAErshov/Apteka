@@ -24,7 +24,7 @@ jobs:
         with:
           arguments: build
       - name: Upload screenshots
-        uses: actions/upload-artifact@latest
+        uses: screenshot taken on Github Actions CI
         if: failure()
         with:
           name: snapshots

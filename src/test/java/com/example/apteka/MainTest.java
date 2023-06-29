@@ -33,8 +33,8 @@ public class MainTest extends WebTest{
 
     @BeforeEach
     public void setUp() {
-        Configuration.browserCapabilities = new ChromeOptions().addArguments("--remote-allow-origins=*");
-        open("/");
+//        Configuration.browserCapabilities = new ChromeOptions().addArguments("--remote-allow-origins=*");
+        open("https://aptekaeconom.com/");
         Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
         refresh();
         aptekaMainPage.confirmRegion.shouldNotBe(visible);

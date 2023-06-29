@@ -21,20 +21,9 @@ public class MainTest extends WebTest{
     AptekaSearchPage aptekaSearchPage = new AptekaSearchPage();
     AptekaBasketPage aptekaBasketPage = new AptekaBasketPage();
 
-//    @BeforeAll
-//    public static void setUpAll() {
-//        WebDriverManager.chromedriver().setup();
-//        Configuration.browser = "chrome";
-//        Configuration.baseUrl = "https://aptekaeconom.com";
-//        Configuration.browserSize = "1920x1080";
-//        Configuration.pageLoadStrategy = "none";
-//        SelenideLogger.addListener("allure", new AllureSelenide());
-//    }
-
     @BeforeEach
     public void setUp() {
-        Configuration.browserCapabilities = new ChromeOptions().addArguments("--remote-allow-origins=*");
-        open("/");
+        open("https://aptekaeconom.com/");
         Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
         refresh();
         aptekaMainPage.confirmRegion.shouldNotBe(visible);

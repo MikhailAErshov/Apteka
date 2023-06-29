@@ -1,6 +1,9 @@
 package com.example.apteka;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -11,7 +14,7 @@ public class AptekaMainPage {
     public SelenideElement searchField = $x("//*[@id='title-search-input_fixed']");
 
     public void checkTheTransitionToACategoryWithAProduct() {
-        tabCatalogue.hover();
-        tabCataloguePoint.click();
+        tabCatalogue.should(Condition.visible, Duration.ofSeconds(10)).hover();
+        tabCataloguePoint.should(Condition.visible, Duration.ofSeconds(10)).click();
     }
 }

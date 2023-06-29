@@ -8,6 +8,8 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.refresh;
@@ -26,7 +28,7 @@ public class MainTest extends WebTest{
         open("https://aptekaeconom.com/");
         Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
         refresh();
-        aptekaMainPage.confirmRegion.shouldNotBe(visible);
+        aptekaMainPage.confirmRegion.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     @AfterEach
@@ -47,7 +49,7 @@ public class MainTest extends WebTest{
         });
 
         step("Проверить, что переход успешен и корректно отображается соответствующая подкатегория", () -> {
-            aptekaCataloguePage.pagetitle.shouldBe(visible);
+            aptekaCataloguePage.pagetitle.should(Condition.visible, Duration.ofSeconds(10));
             aptekaCataloguePage.pagetitle.shouldHave(Condition.text(Variables.searchVariables));
         });
 

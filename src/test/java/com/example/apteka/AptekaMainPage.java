@@ -14,7 +14,7 @@ public class AptekaMainPage {
     public SelenideElement searchField = $x("//*[@id='title-search-input_fixed']");
 
     public void checkTheTransitionToACategoryWithAProduct() {
-        tabCatalogue.should(Condition.visible, Duration.ofSeconds(10)).hover();
-        tabCataloguePoint.should(Condition.visible, Duration.ofSeconds(10)).click();
+        tabCatalogue.should(Condition.visible, Duration.ofSeconds(5)).hover();
+        tabCataloguePoint.should(Condition.visible, Duration.ofSeconds(5)).click();
     }
 }

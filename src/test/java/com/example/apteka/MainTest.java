@@ -16,22 +16,20 @@ import static com.codeborne.selenide.Selenide.refresh;
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MainTest extends WebTest{
+public class MainTest extends WebTest {
 
     AptekaMainPage aptekaMainPage = new AptekaMainPage();
     AptekaCataloguePage aptekaCataloguePage = new AptekaCataloguePage();
     AptekaSearchPage aptekaSearchPage = new AptekaSearchPage();
     AptekaBasketPage aptekaBasketPage = new AptekaBasketPage();
 
-
-
-//    @BeforeEach
-//    public void setUp() {
-//        open("https://aptekaeconom.com/");
-//        Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
-//        refresh();
-//        aptekaMainPage.confirmRegion.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
-//    }
+    @BeforeEach
+    public void setUp() {
+        open("https://aptekaeconom.com");
+        Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
+        refresh();
+        aptekaMainPage.confirmRegion.shouldNotBe(Condition.visible, Duration.ofSeconds(5));
+    }
 
     @AfterEach
     public void setDown() {
@@ -46,10 +44,6 @@ public class MainTest extends WebTest{
     @Test
     @DisplayName("Переход к категории товара")
     public void shouldTheDisplayOfAProductCategory() {
-        open("https://aptekaeconom.com/");
-        Selenide.webdriver().driver().getWebDriver().manage().addCookie(new Cookie("current_region", "103006"));
-        refresh();
-
 
         step("Навести курсор на одну из категорий и нажать на подкатегорию", () -> {
             aptekaMainPage.checkTheTransitionToACategoryWithAProduct();

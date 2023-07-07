@@ -44,24 +44,18 @@ public class MainTest extends WebTest {
     @Test
     @DisplayName("Переход к категории товара")
     public void shouldTheDisplayOfAProductCategory() {
-
-        step("Навести курсор на одну из категорий и нажать на подкатегорию", () -> {
-            aptekaMainPage.checkTheTransitionToACategoryWithAProduct();
+        step("Навести курсор на категорию с товарами", () -> {
+            aptekaMainPage.checkTheTransitionToACategoryWithAProduct_hover(aptekaMainPage.tabCatalogue);
         });
-
-        step("Проверить, что переход успешен и корректно отображается соответствующая подкатегория", () -> {
-            aptekaCataloguePage.pagetitle.should(Condition.visible, Duration.ofSeconds(10));
-            aptekaCataloguePage.pagetitle.shouldHave(Condition.text(Variables.searchVariables));
+        step("Нажать на подкатегорию", () -> {
+            aptekaMainPage.checkTheTransitionToACategoryWithAProduct_click(aptekaMainPage.tabCataloguePoint);
         });
-
-        step("Проверить, что хлебные крошки отображаются корректно", () -> {
-            aptekaCataloguePage.breadCrumbs.shouldBe(visible);
-            aptekaCataloguePage.breadCrumbsMain.shouldHave(text("Главная"));
-            aptekaCataloguePage.breadCrumbsCatalogue.shouldHave(text("Каталог"));
-            aptekaCataloguePage.breadCrumbsSubCatalogue.shouldHave(text("Косметика"));
-            aptekaCataloguePage.breadCrumbsCategory.shouldHave(text(Variables.searchVariables));
+        step("Проверить успешность перехода в категорию", () -> {
+            aptekaCataloguePage.checkMovedToCategory(aptekaCataloguePage.pagetitle, Variables.searchVariables);
         });
-
+        step("Проверить корректность отображения хлебных крошек", () -> {
+            aptekaCataloguePage.checkBreadCrumbs(Variables.breadcrumbsArray);
+        });
         step("Проверить, что в списке продуктов отображается хотя бы 1 товар категории", () -> {
             assertTrue(aptekaCataloguePage.productsCollection.size() > 1);
         });
@@ -70,28 +64,24 @@ public class MainTest extends WebTest {
     @Test
     @DisplayName("Поиск товара")
     public void shouldSearchingResults() {
-        step("Ввести в строку поиска слово или словосочетание и нажать enter", () -> {
+        step("Ввести в строку поиска слово или словосочетание", () -> {
             aptekaMainPage.searchField.sendKeys(Variables.searchOneWordValidTextFirst);
+        });
+        step("Нажать enter", () -> {
             aptekaMainPage.searchField.pressEnter();
         });
-
         step("Убедиться, что переход на страницу результатов успешен", () -> {
-            aptekaSearchPage.pagetitle.shouldBe(visible);
-            aptekaSearchPage.pagetitle.shouldHave(text("Поиск"));
+            aptekaSearchPage.checkSuccessSearchPage();
         });
-
         step("Проверить, что результат поиска не пустой", () -> {
             assertFalse(aptekaSearchPage.productsCollection.isEmpty());
         });
-
         step("Проверить, что первый результат поиска содержит именно то, что искали", () -> {
             aptekaSearchPage.productsCollection.get(0).shouldHave(text(Variables.searchOneWordValidTextFirst));
         });
-
-        step("Проверить, что все результаты поиска содержат именно то, что искали", () -> {
+        step("Проверить, если есть другие результаты поиска, то они тоже содержат иcкомую фразу", () -> {
             aptekaSearchPage.listProduct();
         });
-
         step("Проверить, что в поисковой выдаче 5 результатов", () -> {
             assertEquals(5, aptekaSearchPage.productsCollection.size());
         });
@@ -100,46 +90,36 @@ public class MainTest extends WebTest {
     @Test
     @DisplayName("Кнопка Отложить")
     public void shouldWishItemResults() {
-        step("Ввести в строку поиска запрос и нажать enter", () -> {
+        step("Ввести в строку поиска слово или словосочетание", () -> {
             aptekaMainPage.searchField.sendKeys(Variables.searchOneWordValidTextSecond);
+        });
+        step("Нажать enter", () -> {
             aptekaMainPage.searchField.pressEnter();
         });
-
         step("Навести курсор на товар из результатов поиска", () -> {
             aptekaSearchPage.likeIcons.hover();
         });
-
         step("Проверить, что иконка с кнопкой Отложить отображается", () -> {
-            aptekaSearchPage.wishItemButton.shouldBe(visible);
-            aptekaSearchPage.wishItemButton.shouldHave(Condition.attribute("title", "Отложить"));
+            aptekaSearchPage.checkIconDelayed();
         });
-
         step("Нажать на иконку с кнопкой Отложить", () -> {
             aptekaSearchPage.wishItemButton.click();
         });
-
         step("Проверить, что иконка изменила название на В отложенных и отображается", () -> {
-            aptekaSearchPage.wishItemButton.shouldBe(Condition.not(visible));
-            aptekaSearchPage.wishItemButtonOnPending.shouldBe(visible);
-            aptekaSearchPage.wishItemButtonOnPending.shouldHave(Condition.attribute("title", "В отложенных"));
+            aptekaSearchPage.checkChangeNameIconDelayed();
         });
-
         step("Нажать на иконку с отложенными товарами", () -> {
             aptekaSearchPage.iconHeart.click();
         });
-
-        step("Проверить, что переход успешен и отображается целевой раздел", () -> {
+        step("Проверить, что переход в целевой раздел успешен", () -> {
             aptekaBasketPage.pagetitle.shouldBe(visible);
         });
-
         step("Проверить, что выбранный товар отображается в отложенных", () -> {
             aptekaBasketPage.productValueInDelayed.shouldBe(visible);
         });
-
         step("Проверить, что товар отложен", () -> {
             aptekaBasketPage.itemDelayed.shouldHave(Condition.text("Товар отложен"));
         });
-
         step("Проверить, что цена отложенного товара не учитывается в итоговой сумме заказа", () -> {
             aptekaBasketPage.checkPriceBasketAndDelayed();
         });

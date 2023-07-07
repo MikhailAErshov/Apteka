@@ -7,6 +7,8 @@ import com.codeborne.selenide.SelenideElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,5 +35,21 @@ public class AptekaSearchPage {
     public void checkPriceComparison() {
         String price = iconHeart.getAttribute("title");
         priceValue.shouldHave(Condition.text(price.replaceFirst("\\D*(\\d*).*", "$1")));
+    }
+
+    public void checkSuccessSearchPage() {
+        pagetitle.shouldBe(visible);
+        pagetitle.shouldHave(text("Поиск"));
+    }
+
+    public void checkIconDelayed() {
+        wishItemButton.shouldBe(visible);
+        wishItemButton.shouldHave(Condition.attribute("title", "Отложить"));
+    }
+
+    public void checkChangeNameIconDelayed() {
+        wishItemButton.shouldBe(Condition.not(visible));
+        wishItemButtonOnPending.shouldBe(visible);
+        wishItemButtonOnPending.shouldHave(Condition.attribute("title", "В отложенных"));
     }
 }

@@ -6,4 +6,5 @@ public class Variables {
     public static String searchOneWordValidTextSecond = "Ибупрофен";
     public static String searchInvalidText = "Ебупрофен";
     public static String searchSomeWordValidText = "Кармолис леденцы";
+    public static String[] breadcrumbsArray = {"Главная","Каталог","\nКосметика", "Гели для душа"};
 }

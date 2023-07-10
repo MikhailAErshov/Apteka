@@ -29,7 +29,7 @@ public class AptekaCataloguePage {
     public void checkBreadCrumbs(String[] breadcrumbs) {
         breadCrumbs.shouldBe(visible);
         String breadCrumbResult = breadCrumbCollection.getText();
-        String[] breadCrumbResultArray = breadCrumbResult.split("-");
+        String[] breadCrumbResultArray = breadCrumbResult.replace("\n", "").split("-");
 
         assertArrayEquals(breadcrumbs, breadCrumbResultArray);
     }

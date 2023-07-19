@@ -3,6 +3,9 @@ name: Build + tests
 on:
   pull_request:
     branches: ["master"]
+    paths-ignore: 
+      -'\src\test\java\com\example\shop\ShopApplicationApiTest.java'
+      -'\src\test\java\com\example\shop\ShopApplicationUiTest.java' 
 
 permissions:
   contents: read
